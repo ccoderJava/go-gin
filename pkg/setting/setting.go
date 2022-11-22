@@ -1,4 +1,4 @@
-package main
+package setting
 
 import (
 	"github.com/go-ini/ini"
@@ -49,8 +49,4 @@ func LoadApp() {
 	}
 	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
-}
-
-func main() {
-
 }
