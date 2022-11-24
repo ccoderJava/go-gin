@@ -1,5 +1,10 @@
 package models
 
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
+
 // Tag 创建Tag结构体，编译Gorm使用,JSON标签便于后续gin中进行格式转化
 type Tag struct {
 	Model
@@ -41,4 +46,42 @@ func ExistTagByName(name string) bool {
 		return true
 	}
 	return false
+}
+
+// BeforeCreate gorm的回调方法。将回调方法定义为模型结构指针，在创建、更新、删除、查询时被调用，
+// 如果在回掉时出现异常，gorm将停止操作进行回滚更改
+// 创建：BeforeSave AfterSave BeforeCreate AfterCreate
+// 更新: BeforeSave AfterSave BeforeUpdate AfterUpdate
+// 删除 BeforeDelete AfterDelete
+// 查询 AfterFind
+func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {
+	err := scope.SetColumn("CreatedOn", time.Now().Unix())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (tag *Tag) BeforeUpdate(scope *gorm.Scope) error {
+	err := scope.SetColumn("ModifiedOn", time.Now().Unix())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func ExistTagById(id int) bool {
+	var tag Tag
+	db.Select("id").Where("id = ?", id).First(&tag)
+	return tag.Id > 0
+}
+
+func DeleteTag(id int) bool {
+	db.Where("id = ?", id).Delete(&Tag{})
+	return true
+}
+
+func EditTag(id int, data interface{}) bool {
+	db.Model(&Tag{}).Where("id = ?", id).Updates(data)
+	return true
 }
