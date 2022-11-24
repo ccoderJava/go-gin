@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"go-gin-examples/pkg/setting"
 	"log"
 )
@@ -30,14 +31,18 @@ func init() {
 	dbType = section.Key("TYPE").String()
 	dbName = section.Key("NAME").String()
 	user = section.Key("USER").String()
-	password = section.Key("password").String()
+	password = section.Key("PASSWORD").String()
 	host = section.Key("HOST").String()
 	tablePrefix = section.Key("TABLE_PREFIX").String()
 
-	db, err := gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user, password, host, dbName))
 	if err != nil {
 		log.Println(err)
+	}
+
+	if err = db.DB().Ping(); err != nil {
+		log.Fatalf("database not connect:%v", err)
 	}
 
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
