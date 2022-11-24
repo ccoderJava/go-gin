@@ -22,3 +22,23 @@ func GetTagTotal(maps interface{}) (count int) {
 	db.Model(&Tag{}).Where(maps).Count(&count)
 	return
 }
+
+// AddTag 创建tag
+func AddTag(name string, state int, createdBy string) bool {
+	db.Create(&Tag{
+		Name:      name,
+		State:     state,
+		CreatedBy: createdBy,
+	})
+	return true
+}
+
+// ExistTagByName 通过name判断tag是否存在
+func ExistTagByName(name string) bool {
+	var tag Tag
+	db.Select("id").Where("name=?", name).First(&tag)
+	if tag.Id > 0 {
+		return true
+	}
+	return false
+}
