@@ -16,10 +16,25 @@ func InitRouter() *gin.Engine {
 
 	var apiv1 = r.Group("/api/v1")
 	{
+		//获取标签
 		apiv1.GET("/tags", v1.GetTags)
+		//新增标签
 		apiv1.POST("/tags", v1.AddTag)
-		apiv1.PUT("/tags:id", v1.EditTag)
-		apiv1.DELETE("/tags:id", v1.DeleteTag)
+		//修改标签
+		apiv1.PUT("/tags/:id", v1.EditTag)
+		//删除标签
+		apiv1.DELETE("/tags/:id", v1.DeleteTag)
+
+		//获取文章列表
+		apiv1.GET("/articles", v1.GetArticles)
+		//获取单个文章
+		apiv1.GET("/articles/:id", v1.GetArticle)
+		//新建文章
+		apiv1.POST("/articles", v1.AddArticle)
+		//修改文章
+		apiv1.POST("/articles/:id", v1.EditArticle)
+		//删除文章
+		apiv1.DELETE("/articles/:id", v1.DeleteArticle)
 
 	}
 

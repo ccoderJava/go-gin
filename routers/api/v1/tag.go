@@ -70,7 +70,7 @@ func AddTag(c *gin.Context) {
 
 // EditTag 修改标签
 func EditTag(c *gin.Context) {
-	id := com.StrTo(c.Query("id")).MustInt()
+	id := com.StrTo(c.Param("id")).MustInt()
 	name := c.Query("name")
 	modifiedBy := c.Query("modified_by")
 
