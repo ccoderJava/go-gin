@@ -16,3 +16,15 @@
 + 删除指定标签： `DELETE /tags/:id`
 
 
+
+### 文章
++ 获取多个文章： `GET /articles`
++ 获取单个文章： `GET /articles/:id`
++ 新建文章： `POST /articles`
++ 更新指定文章： `PUT /articles/:id`
++ 删除指定文章： `DELETE /articles/:id`
+
+### 文件处理
+
++ 上传图片： `POST /upload`
++ 获取图片： `GET /upload/:path`
