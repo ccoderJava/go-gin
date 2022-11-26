@@ -46,15 +46,23 @@ func GetArticle(id int) (article Article) {
 	return
 }
 
-// EditArticle TODO
+// EditArticle 编辑文章
 func EditArticle(id int, maps interface{}) bool {
-
-	return false
+	db.Model(&Article{}).Where("id = ?", id).Updates(maps)
+	return true
 }
 
-// AddArticle TODO
+// AddArticle  添加文章
 func AddArticle(data map[string]interface{}) bool {
-	return false
+	db.Create(&Article{
+		TagID:     data["tag_id"].(int),
+		Title:     data["title"].(string),
+		Desc:      data["desc"].(string),
+		Content:   data["content"].(string),
+		CreatedBy: data["created_by"].(string),
+		State:     data["state"].(int),
+	})
+	return true
 }
 
 func DeleteArticle(id int) bool {
