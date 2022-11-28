@@ -32,7 +32,7 @@ func InitRouter() *gin.Engine {
 		//新建文章
 		apiv1.POST("/articles", v1.AddArticle)
 		//修改文章
-		apiv1.POST("/articles/:id", v1.EditArticle)
+		apiv1.PUT("/articles/:id", v1.EditArticle)
 		//删除文章
 		apiv1.DELETE("/articles/:id", v1.DeleteArticle)
 

@@ -23,7 +23,7 @@ type Article struct {
 
 func ExistArticleById(id int) bool {
 	var article Article
-	db.Select("id").Where("id = ?").First(&article)
+	db.Select("id").Where("id = ?", id).First(&article)
 
 	return article.Id > 0
 }
