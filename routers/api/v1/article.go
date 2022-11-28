@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"go-gin-examples/models"
-	"go-gin-examples/pkg/e"
-	"go-gin-examples/pkg/setting"
-	"go-gin-examples/pkg/util"
+	"go-gin/models"
+	"go-gin/pkg/e"
+	"go-gin/pkg/setting"
+	"go-gin/pkg/util"
 	"log"
 	"net/http"
 

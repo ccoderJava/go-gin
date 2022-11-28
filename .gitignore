@@ -3,4 +3,4 @@
 go.sum
 
 # ignore executable files
-go_gin_examples
+go-gin

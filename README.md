@@ -1,4 +1,4 @@
-# go-gin-examples
+# go-gin
 
 + Gin: Golang web framework
 + beego-validation: beego form validation

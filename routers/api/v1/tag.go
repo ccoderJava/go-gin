@@ -4,10 +4,10 @@ import (
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
-	"go-gin-examples/models"
-	"go-gin-examples/pkg/e"
-	"go-gin-examples/pkg/setting"
-	"go-gin-examples/pkg/util"
+	"go-gin/models"
+	"go-gin/pkg/e"
+	"go-gin/pkg/setting"
+	"go-gin/pkg/util"
 	"net/http"
 )
 

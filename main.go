@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"go-gin-examples/pkg/setting"
-	"go-gin-examples/routers"
+	"go-gin/pkg/setting"
+	"go-gin/routers"
 	"net/http"
 )
 

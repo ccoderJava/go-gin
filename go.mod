@@ -1,4 +1,4 @@
-module go-gin-examples
+module go-gin
 
 go 1.18
 
