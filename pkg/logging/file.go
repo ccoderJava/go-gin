@@ -60,11 +60,11 @@ func Info(v ...interface{}) {
 
 func Warn(v ...interface{}) {
 	setPrefix(WARNING)
-	fmt.Println(v)
+	logger.Println(v)
 }
 func Error(v ...interface{}) {
 	setPrefix(ERROR)
-	fmt.Println(v)
+	logger.Println(v)
 }
 
 func Fatal(v ...interface{}) {
