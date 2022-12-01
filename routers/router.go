@@ -2,6 +2,9 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"go-gin/docs"
 	"go-gin/middleware/jwt"
 	"go-gin/pkg/setting"
 	"go-gin/routers/api"
@@ -9,12 +12,22 @@ import (
 )
 
 func InitRouter() *gin.Engine {
+	// programatically set swagger info
+	docs.SwaggerInfo.Title = "Golang Gin API"
+	docs.SwaggerInfo.Description = "This is a sample server Petstore server."
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "http://localhost:8000"
+	docs.SwaggerInfo.BasePath = "/v1"
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+
 	r := gin.New()
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
 	gin.SetMode(setting.RunMode)
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	//新增auth接口
 	r.GET("/auth", api.GetAuth)
