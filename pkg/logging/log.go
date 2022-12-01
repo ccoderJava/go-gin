@@ -50,8 +50,13 @@ func openLogFile(filePath string) *os.File {
 func mkDir() {
 	//os.Getwd 返回当前文件根路径
 	dir, _ := os.Getwd()
+	logDir := dir + "/" + getLogFilePath()
+	_, err := os.Stat(logDir)
+	if !os.IsNotExist(err) {
+		return
+	}
 	//os.ModePerm   ModePerm FileMode = 0777 // Unix permission bits
-	err := os.Mkdir(dir+"/"+getLogFilePath(), os.ModePerm)
+	err = os.Mkdir(dir+"/"+getLogFilePath(), os.ModePerm)
 	if err != nil {
 		panic(err)
 	}
