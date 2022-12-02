@@ -1,24 +1,25 @@
 <!-- TOC -->
-* [介绍](#)
-* [技术栈](#)
-* [接口](#)
-  * [标签](#)
-  * [文章](#)
-  * [文件处理](#)
-* [MySQL容器启动](#mysql)
-* [Dockerfile](#dockerfile)
-  * [golang镜像](#golang)
-    * [构建镜像](#)
-    * [运行镜像](#)
-  * [scratch镜像](#scratch)
-    * [编译可执行文件。](#)
-    * [打包镜像](#)
-    * [运行镜像](#)
+  * [介绍](#介绍)
+  * [技术栈](#技术栈)
+  * [接口](#接口)
+    * [标签](#标签)
+    * [文章](#文章)
+  * [MySQL容器启动](#MySQL容器启动)
+  * [Dockerfile](#Dockerfile)
+    * [golang镜像](#golang镜像)
+      * [构建镜像](#构建镜像)
+      * [构建镜像](#构建镜像)
+    * [scratch镜像](#scratch镜像)
+      * [编译可执行文件](#编译可执行文件)
+      * [打包镜像](#打包镜像)
+      * [运行镜像](#运行镜像)
 <!-- TOC -->
-# 介绍
+
+## 介绍
+
 本项目是一个简单的博客系统，主要用于学习golang的web开发。项目使用golang开发，使用MySQL数据库，项目使用docker进行部署，使用docker-compose进行编排。
 
-# 技术栈
+## 技术栈
 
 + Gin: Golang web framework
 + beego-validation: beego form validation
@@ -26,9 +27,9 @@
 + com: common functions
 + conf: config file
 
-# 接口
+## 接口
 
-## 标签
+### 标签
 
 + 获取标签列表： `GET /tags`
 + 新建标签： `POST /tags`
@@ -37,20 +38,15 @@
 
 
 
-## 文章
+### 文章
 + 获取多个文章： `GET /articles`
 + 获取单个文章： `GET /articles/:id`
 + 新建文章： `POST /articles`
 + 更新指定文章： `PUT /articles/:id`
 + 删除指定文章： `DELETE /articles/:id`
 
-## 文件处理
 
-+ 上传图片： `POST /upload`
-+ 获取图片： `GET /upload/:path`
-
-
-# MySQL容器启动
+## MySQL容器启动
 
 由于需要使用到MySQL服务。此处启动一个容器名称为`mysql_gin`的MySQL容器。
 在app.ini文件中使用MySQL地址时就是用容器的主机名`mysql_gin:3306`
@@ -58,9 +54,9 @@
 docker run --name mysql_gin -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -v /data/docker-mysql:/var/lib/mysql -d mysql
 ```
 
-# Dockerfile
+## Dockerfile
 
-## golang镜像
+### golang镜像
 
 ```dockerfile
 FROM golang:latest
@@ -79,7 +75,7 @@ EXPOSE 8000
 ENTRYPOINT ["./go-gin"]
 ```
 
-### 构建镜像
+#### 构建镜像
 
 ```bash
 docker build -t gin-blog-docker .
@@ -105,7 +101,7 @@ docker build -t gin-blog-docker .
  => => naming to docker.io/library/gin-blog-docker 
 ```
 
-### 运行镜像
+#### 运行镜像
 
 ```bash
  docker run --link mysql_gin:mysql_gin --name gin-blog  -p 8000:8000 gin-blog-docker 
@@ -130,7 +126,7 @@ docker build -t gin-blog-docker .
 [GIN-debug] DELETE /api/v1/articles/:id      --> go-gin/routers/api/v1.DeleteArticle (4 handlers)
 ```
 
-## scratch镜像
+### scratch镜像
 ```dockerfile
 FROM scratch
 MAINTAINER ccoderJava "congccoder@gmail.com"
@@ -144,14 +140,14 @@ EXPOSE 8000
 CMD ["./go-gin"]
 ```
 
-### 编译可执行文件。
+#### 编译可执行文件
 
 编译所生成的可执行文件会依赖一些库，并且是动态链接。所以需要将这些库一起打包到镜像中。
 ```bash
 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-gin . 
 ```
 
-### 打包镜像
+#### 打包镜像
 
 ```bash
 docker build -t gin-blog-docker-scratch .  
@@ -172,7 +168,7 @@ docker build -t gin-blog-docker-scratch .
  => => naming to docker.io/library/gin-blog-docker-scratch  
 ```
 
-### 运行镜像
+#### 运行镜像
 
 ```bash
  docker run --link mysql_gin:mysql_gin --name gin-blog  -p 8000:8000 gin-blog-docker-scratch
