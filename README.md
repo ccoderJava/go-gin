@@ -26,6 +26,7 @@
 + gorm: ORM framework
 + com: common functions
 + conf: config file
++ Dockerfile: dockerfile
 
 ## 接口
 
