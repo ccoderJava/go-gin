@@ -26,7 +26,7 @@
 + gorm: ORM framework
 + com: common functions
 + conf: config file
-+ Dockerfile: dockerfile
++ Dockerfile: dockerfile 构建可执行镜像
 
 ## 接口
 
